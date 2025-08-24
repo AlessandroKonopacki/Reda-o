@@ -1,76 +1,129 @@
-:root {
-  --primary-color: #2d89ef;
-  --secondary-color: #f4f4f4;
-  --text-color: #333;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: Arial, sans-serif;
-  background: var(--secondary-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+/* Estilos de cabeçalho e rodapé */
 header {
-  background: var(--primary-color);
-  color: white;
-  padding: 10px;
-  text-align: center;
-  border-radius: 8px;
+    color: white;
+    padding: 15px;
+    text-align: center;
 }
 
-header nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
+header h1 {
+    margin: 0;
 }
 
-header nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+footer {
+    padding: 10px;
+    text-align: center;
 }
 
+/* Estilos para o corpo de cada página */
+body.corretor, body.professor {
+    background: #f2f2f2;
+}
+
+body.professor {
+    background: #f9f9f9;
+}
+
+/* Estilos para o corpo do index.html */
+body:not(.alunos):not(.corretor):not(.professor) {
+    text-align: center;
+    background: #f2f2f2;
+}
+
+body.alunos {
+    background: #f9f9f9; /* Adicionado um fundo para a página do aluno */
+    margin: 20px;
+}
+
+/* Estilos gerais para main */
 main {
-  margin-top: 20px;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 500px;
-  margin: auto;
+/* Estilos para o menu (index.html) */
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 40px;
 }
 
-input, textarea, button {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    text-decoration: none;
+    color: black;
 }
 
+.card:hover {
+    transform: scale(1.05);
+    background: #e8f5e9;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+/* Estilos para os elementos de formulário */
+textarea,
+input {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Para garantir que o padding não aumente a largura */
+}
+
+/* Estilos para botões */
 button {
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
+    padding: 8px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
 }
 
-button:hover {
-  background: #1b5cb8;
+.btn-salvar {
+    background: #4CAF50;
 }
 
-ul {
-  margin-top: 15px;
-  padding-left: 20px;
+.btn-salvar:hover {
+    background: #45a049;
+}
+
+.btn-limpar {
+    background: #d9534f;
+}
+
+.btn-limpar:hover {
+    background: #c9302c;
+}
+
+/* Estilos de exibição das redações */
+.redacao {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sem-correcao {
+    color: #999;
+    font-style: italic;
 }

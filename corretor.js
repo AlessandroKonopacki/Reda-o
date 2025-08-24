@@ -1,31 +1,39 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const lista = document.getElementById("listaCorretor");
-  const redacoes = JSON.parse(localStorage.getItem("redacoes") || "[]");
+async function consultar() {
+  const nome = document.getElementById("nome").value.trim();
+  const resultado = document.getElementById("resultado");
+  resultado.innerHTML = "";
 
-  if (redacoes.length === 0) {
-    lista.innerHTML = "<li>Nenhuma redação para corrigir.</li>";
+  if (!nome) {
+    alert("Preencha o nome!");
     return;
   }
 
-  redacoes.forEach((r, i) => {
-    const li = document.createElement("li");
-    li.textContent = `${r.nome}: ${r.texto}`;
+  try {
+    const snapshot = await db.collection("redacoes").where("nome", "==", nome).get();
+    
+    if (snapshot.empty) {
+      resultado.innerHTML = "<p>Nenhuma redação encontrada para este nome.</p>";
+      return;
+    }
 
-    const input = document.createElement("input");
-    input.type = "text";
-    input.placeholder = "Nota";
-
-    const btn = document.createElement("button");
-    btn.textContent = "Salvar nota";
-    btn.addEventListener("click", () => {
-      r.nota = input.value || "sem nota";
-      redacoes[i] = r;
-      localStorage.setItem("redacoes", JSON.stringify(redacoes));
-      alert("Nota salva!");
+    snapshot.forEach(doc => {
+      const r = doc.data();
+      const div = document.createElement("div");
+      div.className = "redacao";
+      div.innerHTML = `
+        <p><b>Tema:</b> ${r.tema}</p>
+        <p><b>Redação:</b><br>${r.redacao.replace(/\n/g, "<br>")}</p>
+        ${
+          r.corrigida
+            ? `<p><b>Nota:</b> ${r.correcao.nota}</p>
+               <p><b>Comentário:</b><br>${r.correcao.comentario.replace(/\n/g, "<br>")}</p>`
+            : `<p class="sem-correcao">Aguardando correção...</p>`
+        }
+      `;
+      resultado.appendChild(div);
     });
-
-    li.appendChild(input);
-    li.appendChild(btn);
-    lista.appendChild(li);
-  });
-});
+  } catch (e) {
+    console.error("Erro ao consultar redações: ", e);
+    resultado.innerHTML = "<p>Ocorreu um erro na consulta.</p>";
+  }
+}

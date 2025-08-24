@@ -1,27 +1,29 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("formAluno");
-  const mensagem = document.getElementById("mensagemAluno");
+async function enviar() {
+  const nome = document.getElementById("nome").value;
+  const tema = document.getElementById("tema").value;
+  const redacao = document.getElementById("redacao").value;
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  if (!nome || !tema || !redacao) {
+    alert("Preencha todos os campos!");
+    return;
+  }
 
-    const nome = document.getElementById("nomeAluno").value.trim();
-    const texto = document.getElementById("redacao").value.trim();
+  try {
+    // Salvar a redação no Firestore
+    await db.collection("redacoes").add({
+      nome: nome,
+      tema: tema,
+      redacao: redacao,
+      dataEnvio: firebase.firestore.FieldValue.serverTimestamp(),
+      corrigida: false
+    });
 
-    if (!nome || !texto) {
-      mensagem.textContent = "Preencha todos os campos!";
-      mensagem.style.color = "red";
-      return;
-    }
-
-    const redacao = { nome, texto, status: "enviada" };
-
-    const lista = JSON.parse(localStorage.getItem("redacoes") || "[]");
-    lista.push(redacao);
-    localStorage.setItem("redacoes", JSON.stringify(lista));
-
-    mensagem.textContent = "Redação enviada com sucesso!";
-    mensagem.style.color = "green";
-    form.reset();
-  });
-});
+    alert("Redação enviada com sucesso!");
+    document.getElementById("nome").value = "";
+    document.getElementById("tema").value = "";
+    document.getElementById("redacao").value = "";
+  } catch (e) {
+    console.error("Erro ao adicionar documento: ", e);
+    alert("Ocorreu um erro ao enviar sua redação.");
+  }
+}

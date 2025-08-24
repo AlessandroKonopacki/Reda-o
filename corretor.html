@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Área do Corretor</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Consulta de Correção</title>
+     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header>
-    <h1>Área do Corretor</h1>
-    <nav>
-      <a href="index.html">Voltar</a>
-    </nav>
-  </header>
+<body class="corretor">
+    <header>
+        <h1>🔍 Consulta de Redações</h1>
+    </header>
+    <main>
+        <h2>Digite seus dados</h2>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Ex: Maria Silva">
+        <button onclick="consultar()">Consultar</button>
+        <div id="resultado"></div>
+    </main>
+    <footer>
+        <p>&copy; 2025 - Plataforma de Redações</p>
+    </footer>
 
-  <main>
-    <h2>Correção de Redações</h2>
-    <ul id="listaCorretor"></ul>
-  </main>
-
-  <script src="corretor.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script>
+      // Adicione suas credenciais do Firebase aqui
+      const firebaseConfig = {
+        apiKey: "SUA_API_KEY",
+        authDomain: "SEU_AUTH_DOMAIN",
+        projectId: "SEU_PROJECT_ID",
+        storageBucket: "SEU_STORAGE_BUCKET",
+        messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+        appId: "SEU_APP_ID"
+      };
+      const app = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+    <script src="corretor.js"></script>
 </body>
 </html>

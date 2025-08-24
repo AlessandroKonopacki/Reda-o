@@ -1,24 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Área do Professor</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Painel do Professor</title>
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Área do Professor</h1>
-    <nav>
-      <a href="index.html">Voltar</a>
-    </nav>
+    <h1>📘 Painel do Professor</h1>
   </header>
 
   <main>
-    <h2>Redações enviadas</h2>
-    <ul id="listaRedacoes"></ul>
+    <div id="login-form">
+      <h2>Login do Professor</h2>
+      <label for="email">Email:</label>
+      <input type="email" id="email">
+      <label for="password">Senha:</label>
+      <input type="password" id="password">
+      <button onclick="login()">Entrar</button>
+    </div>
+    
+    <div id="painel-professor" style="display: none;">
+      <h2>Lista de Redações</h2>
+      <div id="lista"></div>
+      <button onclick="auth.signOut()">Sair</button>
+    </div>
   </main>
 
+  <footer>
+    <p>&copy; 2025 - Plataforma de Redações</p>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    // Adicione suas credenciais do Firebase aqui
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "SEU_AUTH_DOMAIN",
+      projectId: "SEU_PROJECT_ID",
+      storageBucket: "SEU_STORAGE_BUCKET",
+      messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+      appId: "SEU_APP_ID"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
   <script src="professor.js"></script>
 </body>
 </html>
