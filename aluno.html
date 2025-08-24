@@ -25,11 +25,10 @@
   <script>
     function enviar() {
       const nome = document.getElementById("nome").value;
-      const turma = document.getElementById("turma").value;
-      const tema = document.getElementById("tema").value;
+           const tema = document.getElementById("tema").value;
       const redacao = document.getElementById("redacao").value;
 
-      if (!nome || !turma || !tema || !redacao) {
+      if (!nome || !tema || !redacao) {
         alert("Preencha todos os campos!");
         return;
       }
@@ -38,7 +37,6 @@
       const novaRedacao = {
         id: Date.now(),
         nome,
-        turma,
         tema,
         redacao,
         correcao: null
@@ -51,7 +49,6 @@
 
       alert("Redação enviada com sucesso!");
       document.getElementById("nome").value = "";
-      document.getElementById("turma").value = "";
       document.getElementById("tema").value = "";
       document.getElementById("redacao").value = "";
     }

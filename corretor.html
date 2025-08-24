@@ -87,23 +87,16 @@
   <script>
     function consultar() {
       const nome = document.getElementById("nome").value.trim();
-      const turma = document.getElementById("turma").value.trim();
       const resultado = document.getElementById("resultado");
       
       resultado.innerHTML = "";
 
-      if (!nome || !turma) {
-        alert("Preencha nome e turma!");
-        return;
-      }
-
-      let lista = JSON.parse(localStorage.getItem("redacoes") || "[]");
+         let lista = JSON.parse(localStorage.getItem("redacoes") || "[]");
 
       // filtra as redações do aluno
       const minhas = lista.filter(r => 
         r.nome.toLowerCase() === nome.toLowerCase() && 
-        r.turma.toLowerCase() === turma.toLowerCase()
-      );
+        );
 
       if (minhas.length === 0) {
         resultado.innerHTML = "<p>Nenhuma redação encontrada.</p>";
