@@ -1,34 +1,79 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envie sua Redação - Plataforma Redação Nota 10</title>
-    <style>
-        body { font-family: sans-serif; margin: 2rem; }
-        form { max-width: 600px; margin: auto; padding: 1rem; border: 1px solid #ccc; border-radius: 8px; }
-        label, input, textarea, button { display: block; margin-bottom: 1rem; width: 100%; }
-        input, textarea { padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
-        textarea { height: 300px; }
-        button { background-color: #007BFF; color: white; padding: 1rem; border: none; border-radius: 4px; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Plataforma de Redações</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 20px;
+    }
+    main {
+      margin-top: 40px;
+    }
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+      text-decoration: none;
+      color: black;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background: #e8f5e9;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    footer {
+      margin-top: 50px;
+      padding: 10px;
+      background: #ddd;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>📚 Plataforma de Redações</h1>
+  </header>
 
-    <form action="#" method="post">
-        <h2>Envie sua Redação</h2>
-        
-        <label for="nome">Seu Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+  <main>
+    <h2>Escolha uma opção</h2>
+    <div class="menu">
+      <a href="aluno.html" class="card">
+        <h2>✍️ Enviar Redação</h2>
+        <p>Área do aluno para escrever e enviar a redação.</p>
+      </a>
+      <a href="consulta.html" class="card">
+        <h2>🔍 Consultar Correção</h2>
+        <p>Veja suas notas e comentários do professor.</p>
+      </a>
+      <a href="professor.html" class="card">
+        <h2>👨‍🏫 Área do Professor</h2>
+        <p>Corrija e avalie as redações enviadas.</p>
+      </a>
+    </div>
+  </main>
 
-        <label for="tema">Tema da Redação:</label>
-        <input type="text" id="tema" name="tema" required>
-
-        <label for="redacao">Digite sua redação aqui:</label>
-        <textarea id="redacao" name="redacao" required></textarea>
-
-        <button type="submit">Enviar Redação</button>
-    </form>
-
+  <footer>
+    <p>&copy; 2025 - Plataforma de Redações</p>
+  </footer>
 </body>
 </html>
