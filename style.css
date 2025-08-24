@@ -95,7 +95,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    color: white;
+    color: rgb(115, 183, 240);
 }
 
 .btn-salvar {
