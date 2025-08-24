@@ -2,16 +2,74 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Correção de Redações</title>
+  <title>Painel do Professor</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .redacao { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; }
-    textarea { width: 100%; height: 100px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .redacao {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    textarea, input {
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 8px 15px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+    .btn-salvar { background: #4CAF50; }
+    .btn-salvar:hover { background: #45a049; }
+    .btn-limpar { background: #d9534f; }
+    .btn-limpar:hover { background: #c9302c; }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      padding: 10px;
+      background: #ddd;
+    }
   </style>
 </head>
 <body>
-  <h1>Correção de Redações</h1>
-  <div id="lista"></div>
+  <header>
+    <h1>📘 Painel do Professor</h1>
+  </header>
+
+  <main>
+    <h2>Lista de Redações</h2>
+    <button class="btn-limpar" onclick="limparHistorico()">🗑️ Limpar histórico</button>
+    <div id="lista"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 - Plataforma de Redações</p>
+  </footer>
 
   <script>
     function carregarRedacoes() {
@@ -20,43 +78,54 @@
       container.innerHTML = "";
 
       if (lista.length === 0) {
-        container.innerHTML = "<p>Nenhuma redação enviada.</p>";
+        container.innerHTML = "<p>Nenhuma redação cadastrada.</p>";
         return;
       }
 
-      lista.forEach((item, index) => {
+      lista.forEach((r, index) => {
         const div = document.createElement("div");
         div.className = "redacao";
         div.innerHTML = `
-          <p><b>Aluno:</b> ${item.nome} | <b>Turma:</b> ${item.turma}</p>
-          <p><b>Tema:</b> ${item.tema}</p>
-          <p><b>Redação:</b><br>${item.redacao.replace(/\n/g, "<br>")}</p>
+          <p><b>Aluno:</b> ${r.nome} - ${r.turma}</p>
+          <p><b>Tema:</b> ${r.tema}</p>
+          <p><b>Redação:</b><br>${r.redacao.replace(/\n/g, "<br>")}</p>
+
           <label>Nota:</label>
-          <input type="number" id="nota-${item.id}" value="${item.correcao ? item.correcao.nota : ""}">
+          <input type="number" id="nota-${index}" value="${r.correcao ? r.correcao.nota : ""}" min="0" max="100">
+
           <label>Comentário:</label>
-          <textarea id="comentario-${item.id}">${item.correcao ? item.correcao.comentario : ""}</textarea>
-          <button onclick="salvarCorrecao(${item.id})">Salvar Correção</button>
+          <textarea id="comentario-${index}">${r.correcao ? r.correcao.comentario : ""}</textarea>
+
+          <button class="btn-salvar" onclick="salvar(${index})">Salvar Correção</button>
         `;
         container.appendChild(div);
       });
     }
 
-    function salvarCorrecao(id) {
+    function salvar(index) {
       let lista = JSON.parse(localStorage.getItem("redacoes") || "[]");
-      const nota = document.getElementById(`nota-${id}`).value;
-      const comentario = document.getElementById(`comentario-${id}`).value;
 
-      lista = lista.map(item => {
-        if (item.id === id) {
-          item.correcao = { nota, comentario };
-        }
-        return item;
-      });
+      const nota = document.getElementById(`nota-${index}`).value;
+      const comentario = document.getElementById(`comentario-${index}`).value;
+
+      lista[index].correcao = {
+        nota: nota,
+        comentario: comentario
+      };
 
       localStorage.setItem("redacoes", JSON.stringify(lista));
       alert("Correção salva!");
     }
 
+    function limparHistorico() {
+      if (confirm("Tem certeza que deseja apagar TODO o histórico de redações?")) {
+        localStorage.removeItem("redacoes");
+        carregarRedacoes();
+        alert("Histórico apagado com sucesso!");
+      }
+    }
+
+    // carrega ao abrir a página
     carregarRedacoes();
   </script>
 </body>
